@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,34 +10,52 @@ public class Shoot : MonoBehaviour
 
     [SerializeField] private GameObject prefab;
     [SerializeField] private float forceBuild = 20f;
+    [SerializeField] private List<Color> beamColors = new List<Color>();
     private float _pressTimer = 0f;
     private float _launchForce = 0f;
 
     private bool _drawLine = false;
-
+    private bool _isEnabled = true;
     private LineRenderer lineRenderer;
+
+
+
     private void Start()
     {
-        
+        Lives.onDepleted += DisableShot;
+
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
 
-        lineRenderer.startColor = Color.white;
-        lineRenderer.endColor = Color.blue;
+        if (beamColors.Count != 2)
+        {
+            Debug.LogWarning("You must choose only 2 colors for your beam!");
+        }
+        else
+        {
+            lineRenderer.startColor = beamColors[0];
+            lineRenderer.endColor = beamColors[1];
+        }
 
-        lineRenderer.startWidth = 0.5f;
-        lineRenderer.endWidth = 0.2f;
+        lineRenderer.startWidth = 0.3f;
+        lineRenderer.endWidth = 0.01f;
 
         lineRenderer.positionCount = 2;
 
     }
+    private void OnDisable()
+    {
+        Lives.onDepleted -= DisableShot;
+    }
     void Update()
     {
-        HandleShot();
-        DrawForceLine();
+        if (_isEnabled) {
+            HandleShot();
+            DrawForceLine();
+        }
     }
     void HandleShot() {
-
+        
         if (Input.GetMouseButtonDown(0))
         { //als de knop ingedrukt word
             _pressTimer = 0; //reset de timer
@@ -72,5 +91,8 @@ public class Shoot : MonoBehaviour
             lineRenderer.SetPosition(0, transform.position);
             lineRenderer.SetPosition(1, transform.position + (transform.right * _pressTimer * 10f));
         }
+    }
+    private void DisableShot() {
+        _isEnabled = false;
     }
 }

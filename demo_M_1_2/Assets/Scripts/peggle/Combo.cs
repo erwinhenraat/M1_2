@@ -12,8 +12,12 @@ public class Combo : MonoBehaviour
     void Start()
     {
         HitBumper.onHitBumper += CheckForCombo;
-        Gutter.onBallLost += ResetCombo;
-        
+        Gutter.onBallLost += ResetCombo;        
+    }
+    private void OnDisable()
+    {
+        HitBumper.onHitBumper -= CheckForCombo;
+        Gutter.onBallLost -= ResetCombo;
     }
     private void ResetCombo()
     {
@@ -27,7 +31,6 @@ public class Combo : MonoBehaviour
             if (tagSequence.Count > 1)
             {
                 onComboAchieved?.Invoke(tagSequence.Count);
-                Debug.Log("#####COMBO_" + tagSequence.Count + "!!!######");
             }
         }
         else {            

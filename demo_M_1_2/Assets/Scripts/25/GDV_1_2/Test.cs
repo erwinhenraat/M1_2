@@ -34,6 +34,6 @@ public class Test : MonoBehaviour
 
     }
     void MijnFunctie() { 
-        int life = 20;
+        //int life = 20;
     }
 }

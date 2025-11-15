@@ -18,6 +18,11 @@ public class Multiplier : MonoBehaviour
         textfield = GetComponent<TMP_Text>();
 
     }
+    private void OnDisable()
+    {
+        Combo.onComboAchieved -= SetMultiplier;
+        Combo.onComboLost -= ResetMultiplier;
+    }
     private void SetMultiplier(int val = 1) { 
         value = val;
         ShowValue();

@@ -5,14 +5,14 @@ public class LogischeNaam : MonoBehaviour
 
     public int score = 0;
 
-    private Rigidbody rigidbody;
+    private Rigidbody rb;
     private MeshRenderer meshRenderer;
     private AudioSource audioSource;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        rigidbody = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         meshRenderer = GetComponent<MeshRenderer>();
         audioSource = GetComponent<AudioSource>();
 
@@ -49,7 +49,7 @@ public class LogischeNaam : MonoBehaviour
                 break;
             case "trap":
                 Debug.Log("Boom");
-                rigidbody.AddForce(Vector3.up * 500f);
+                GetComponent<Rigidbody>().AddForce(Vector3.up * 500f);
                 meshRenderer.enabled = false;
                 audioSource.Play();
 

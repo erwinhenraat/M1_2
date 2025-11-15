@@ -16,6 +16,11 @@ public class Score : MonoBehaviour
 
         textfield = GetComponent<TMP_Text>();
     }
+    private void OnDisable()
+    {
+        HitBumper.onHitBumper -= GetScore;
+        Multiplier.onMultiplierUpdate -= SetMultiplier;
+    }
 
     private void GetScore(string _ , int score) {
         value += score * scoreMultiplier;
