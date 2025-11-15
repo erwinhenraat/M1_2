@@ -21,14 +21,14 @@ public class Screenshake : MonoBehaviour
         Combo.onComboAchieved -= Shake;
     }
     private void Tremble(string _, int points) {
-        shakeTime = .3f;
-        shakeForce = .05f;
+        shakeTime = .2f;
+        shakeForce = .03f;
         elapsedTime = 0f;
         StartCoroutine("TrembleStep");    
     }
     private void Shake(int points) {
         shakeTime = .05f * points;
-        shakeForce = .2f;
+        shakeForce = .02f;
         elapsedTime = 0f;
         StartCoroutine("TrembleStep");
     }
