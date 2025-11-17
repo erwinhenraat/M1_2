@@ -26,6 +26,7 @@ public class Shoot : MonoBehaviour
     private void Start()
     {
         Lives.onDepleted += DisableShot;
+        Lives.onReload += ReloadShot;
 
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
@@ -52,6 +53,7 @@ public class Shoot : MonoBehaviour
     private void OnDisable()
     {
         Lives.onDepleted -= DisableShot;
+        Lives.onReload -= ReloadShot;
     }
     void Update()
     {
@@ -102,5 +104,9 @@ public class Shoot : MonoBehaviour
     }
     private void DisableShot() {
         _isEnabled = false;
+    }
+    private void ReloadShot()
+    {
+        _isEnabled = true;
     }
 }

@@ -6,21 +6,24 @@ public class Lives : MonoBehaviour
     
     public static event Action onGameOver;
     public static event Action onDepleted;
- 
+    public static event Action onReload;
+
 
     [SerializeField] private int lives = 5;
     private int shotsLeft = 0;
 
 
     public int LivesLeft { get => lives; }
+    public int ShotsLeft { get => shotsLeft; }
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         shotsLeft = lives;
+
         Gutter.onBallLost += LoseLife;
         Shoot.onShootNewBall += LoseShot;
-        ExtraBall.onExtraBall += AddShot;
-        ExtraBall.onExtraBall += AddLife;
+        ExtraBall.onExtraBall += AddShotAndLife;
+        
 
        
 
@@ -29,8 +32,7 @@ public class Lives : MonoBehaviour
     {
         Gutter.onBallLost -= LoseLife;
         Shoot.onShootNewBall -= LoseShot;
-        ExtraBall.onExtraBall += AddShot;
-        ExtraBall.onExtraBall += AddLife;
+        ExtraBall.onExtraBall -= AddShotAndLife;     
     }
     private void LoseLife() {
         lives--;
@@ -45,11 +47,13 @@ public class Lives : MonoBehaviour
             onDepleted?.Invoke();
         }
     }
-    private void AddShot() { 
+    private void AddShotAndLife() {
+        Debug.Log("adding shot and Life");
         shotsLeft++;
-    }
-    private void AddLife() {
         lives++;
+        if(shotsLeft>0)onReload?.Invoke();
+
     }
+  
 
 }

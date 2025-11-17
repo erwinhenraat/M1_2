@@ -13,17 +13,14 @@ public class TrackBalls : MonoBehaviour
         ExtraBall.onExtraBall += AddBall;
 
         Lives lscript =  FindAnyObjectByType(typeof(Lives)) as Lives;
-        _ballsLeft = lscript.LivesLeft;
+        _ballsLeft = lscript.ShotsLeft;
         textfield.text = "Balls:" + _ballsLeft;
     }
     private void OnDisable()
     {
         Shoot.onShootNewBall -= RemoveBall;
         ExtraBall.onExtraBall -= AddBall;     
-    }
-    private void Init(int lives) { 
-        _ballsLeft = lives;
-    }
+    }  
     private void RemoveBall(GameObject _)
     {
         _ballsLeft--;
