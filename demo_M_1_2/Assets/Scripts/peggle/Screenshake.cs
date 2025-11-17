@@ -12,23 +12,23 @@ public class Screenshake : MonoBehaviour
     void Start()
     {
         origin = transform.position;
-        HitBumper.onHitBumper += Tremble;
-        Combo.onComboAchieved += Shake;        
+        HitBumper.onHitBumper += Shake;
+        Combo.onComboAchieved += Tremble;        
     }
     private void OnDisable()
     {
-        HitBumper.onHitBumper -= Tremble;
-        Combo.onComboAchieved -= Shake;
+        HitBumper.onHitBumper -= Shake;
+        Combo.onComboAchieved -= Tremble;
     }
-    private void Tremble(string _, int points) {
-        shakeTime = .2f;
-        shakeForce = .03f;
+    private void Shake(Transform _, int points) {
+        shakeTime = .1f;
+        shakeForce = .04f;
         elapsedTime = 0f;
         StartCoroutine("TrembleStep");    
     }
-    private void Shake(int points) {
-        shakeTime = .05f * points;
-        shakeForce = .02f;
+    private void Tremble(int points) {
+        shakeTime = .5f;
+        shakeForce = .02f + (.004f * points);
         elapsedTime = 0f;
         StartCoroutine("TrembleStep");
     }
@@ -36,7 +36,7 @@ public class Screenshake : MonoBehaviour
         while (elapsedTime < shakeTime)
         {
             transform.position = new Vector3(origin.x + Random.Range(-shakeForce, shakeForce), origin.y + Random.Range(-shakeForce, shakeForce), origin.z);
-            yield return new WaitForSeconds(0.02f);
+            yield return new WaitForEndOfFrame();
         }
         transform.position = origin;
     }

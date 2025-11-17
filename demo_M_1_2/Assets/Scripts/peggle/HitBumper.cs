@@ -6,7 +6,7 @@ public class HitBumper : MonoBehaviour
     
     [SerializeField] private int bumperValue = 50;
     private ParticleSystem ps;
-    public static event Action<string,int> onHitBumper;
+    public static event Action<Transform,int> onHitBumper;
     private void Start()
     {
         ps = GetComponent<ParticleSystem>();
@@ -16,7 +16,7 @@ public class HitBumper : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Ball")) {      
 
-            onHitBumper?.Invoke(gameObject.tag, bumperValue);
+            onHitBumper?.Invoke(gameObject.transform, bumperValue);
             ps?.Stop();
             ps?.Play();
         }

@@ -11,12 +11,15 @@ public class Shoot : MonoBehaviour
     [SerializeField] private GameObject prefab;
     [SerializeField] private float forceBuild = 20f;
     [SerializeField] private List<Color> beamColors = new List<Color>();
+    [SerializeField] private float maximumHoldTime = 5f;
+
     private float _pressTimer = 0f;
     private float _launchForce = 0f;
 
     private bool _drawLine = false;
     private bool _isEnabled = true;
     private LineRenderer lineRenderer;
+    private ParticleSystem particles;
 
 
 
@@ -42,6 +45,9 @@ public class Shoot : MonoBehaviour
 
         lineRenderer.positionCount = 2;
 
+        particles = GetComponent<ParticleSystem>();
+        particles.Stop();
+
     }
     private void OnDisable()
     {
@@ -60,8 +66,10 @@ public class Shoot : MonoBehaviour
         { //als de knop ingedrukt word
             _pressTimer = 0; //reset de timer
             ActivateLine(true);
+            particles.Play();
+
         }
-        if (Input.GetMouseButtonUp(0))
+        if (Input.GetMouseButtonUp(0) )
         { //als je de knop loslaat
             _launchForce = _pressTimer * forceBuild; //bepaal de kracht via de timer
             GameObject ball = Instantiate(prefab, transform.parent); //maak een bal
@@ -73,11 +81,11 @@ public class Shoot : MonoBehaviour
             //stuur de nieuwe bal mee via een Unity Event
             onShootNewBall?.Invoke(ball);
 
+            particles.Stop();
 
-           
         }
-        _pressTimer += Time.deltaTime; //houd de teller bij
-
+        if(_pressTimer < maximumHoldTime) _pressTimer += Time.deltaTime; //houd de teller bij
+       
     }
     private void ActivateLine(bool value) {
         _drawLine = value;
@@ -89,7 +97,7 @@ public class Shoot : MonoBehaviour
         if (_drawLine)
         {
             lineRenderer.SetPosition(0, transform.position);
-            lineRenderer.SetPosition(1, transform.position + (transform.right * _pressTimer * 10f));
+            lineRenderer.SetPosition(1, transform.position + (transform.right * _pressTimer * 5f));
         }
     }
     private void DisableShot() {

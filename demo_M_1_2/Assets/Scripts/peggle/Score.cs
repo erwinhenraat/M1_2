@@ -1,9 +1,11 @@
 using System;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SocialPlatforms.Impl;
 
 public class Score : MonoBehaviour
 {
+    public static event Action<Vector2, int> onGetScore;
     private int value = 0;
     private TMP_Text textfield;
     private int scoreMultiplier = 1;
@@ -22,8 +24,10 @@ public class Score : MonoBehaviour
         Multiplier.onMultiplierUpdate -= SetMultiplier;
     }
 
-    private void GetScore(string _ , int score) {
-        value += score * scoreMultiplier;
+    private void GetScore(Transform bumper , int baseScore) {
+        int addedScore = baseScore * scoreMultiplier;
+        value += addedScore;
+        onGetScore?.Invoke((Vector2)bumper.position, addedScore);
         ShowScore();
     }
     private void ShowScore() { 

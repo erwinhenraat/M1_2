@@ -24,13 +24,14 @@ public class Combo : MonoBehaviour
         onComboLost?.Invoke();
         tagSequence.Clear();
     }
-    private void CheckForCombo(string tag, int _) {
-        if (tag == "Combo")
+    private void CheckForCombo(Transform transform, int _) {
+        if (transform.gameObject.CompareTag("Combo"))
         {
-            tagSequence.Add(tag);
-            if (tagSequence.Count > 1)
+            tagSequence.Add(transform.gameObject.tag);
+            int comboLevel = tagSequence.Count;
+            if (comboLevel > 1)
             {
-                onComboAchieved?.Invoke(tagSequence.Count);
+                onComboAchieved?.Invoke(comboLevel);                
             }
         }
         else {            

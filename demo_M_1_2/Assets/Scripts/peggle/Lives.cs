@@ -3,8 +3,11 @@ using UnityEngine;
 
 public class Lives : MonoBehaviour
 {
+    
     public static event Action onGameOver;
     public static event Action onDepleted;
+ 
+
     [SerializeField] private int lives = 5;
     private int shotsLeft = 0;
 
@@ -16,14 +19,22 @@ public class Lives : MonoBehaviour
         shotsLeft = lives;
         Gutter.onBallLost += LoseLife;
         Shoot.onShootNewBall += LoseShot;
+        ExtraBall.onExtraBall += AddShot;
+        ExtraBall.onExtraBall += AddLife;
+
+       
+
     }
     private void OnDisable()
     {
         Gutter.onBallLost -= LoseLife;
         Shoot.onShootNewBall -= LoseShot;
+        ExtraBall.onExtraBall += AddShot;
+        ExtraBall.onExtraBall += AddLife;
     }
     private void LoseLife() {
         lives--;
+        
         if (lives <= 0) {  
             onGameOver?.Invoke();
         }
@@ -33,6 +44,12 @@ public class Lives : MonoBehaviour
         if (shotsLeft <= 0) { 
             onDepleted?.Invoke();
         }
+    }
+    private void AddShot() { 
+        shotsLeft++;
+    }
+    private void AddLife() {
+        lives++;
     }
 
 }

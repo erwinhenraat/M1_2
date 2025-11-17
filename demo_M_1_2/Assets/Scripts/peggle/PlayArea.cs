@@ -5,7 +5,7 @@ public class Gutter : MonoBehaviour
 {
     public static event Action onBallLost;
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerExit2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Ball")) {
 
