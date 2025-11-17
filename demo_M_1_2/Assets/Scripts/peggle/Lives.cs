@@ -23,16 +23,15 @@ public class Lives : MonoBehaviour
         Gutter.onBallLost += LoseLife;
         Shoot.onShootNewBall += LoseShot;
         ExtraBall.onExtraBall += AddShotAndLife;
-        
-
        
 
     }
     private void OnDisable()
     {
+        Debug.Log("on disable");
         Gutter.onBallLost -= LoseLife;
         Shoot.onShootNewBall -= LoseShot;
-        ExtraBall.onExtraBall -= AddShotAndLife;     
+        ExtraBall.onExtraBall -= AddShotAndLife;
     }
     private void LoseLife() {
         lives--;
@@ -51,6 +50,7 @@ public class Lives : MonoBehaviour
         Debug.Log("adding shot and Life");
         shotsLeft++;
         lives++;
+
         if(shotsLeft>0)onReload?.Invoke();
 
     }

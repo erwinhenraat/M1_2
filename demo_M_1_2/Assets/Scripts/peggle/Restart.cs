@@ -29,6 +29,8 @@ public class Restart : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.R))
             {
                 textfield.enabled = false;
+                
+
                 SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
             }
         }

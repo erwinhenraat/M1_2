@@ -11,6 +11,10 @@ public class ExtraBall : MonoBehaviour
     {
         Combo.onComboAchieved += ExtraBallCheck;
     }
+    private void OnDisable()
+    {
+        Combo.onComboAchieved -= ExtraBallCheck;
+    }
 
     private void ExtraBallCheck(int comboLevel) {
         if (comboLevel == comboLevelReached) { 
