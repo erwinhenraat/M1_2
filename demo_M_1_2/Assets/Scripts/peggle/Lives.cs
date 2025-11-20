@@ -27,8 +27,7 @@ public class Lives : MonoBehaviour
 
     }
     private void OnDisable()
-    {
-        Debug.Log("on disable");
+    {       
         Gutter.onBallLost -= LoseLife;
         Shoot.onShootNewBall -= LoseShot;
         ExtraBall.onExtraBall -= AddShotAndLife;

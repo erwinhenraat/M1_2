@@ -18,15 +18,23 @@ public class Shoot : MonoBehaviour
 
     private bool _drawLine = false;
     private bool _isEnabled = true;
+    private bool _startPress = false;
+    private bool _endPress = false;
+
     private LineRenderer lineRenderer;
     private ParticleSystem particles;
 
-
+    /*
+    private bool _fire1Down = false;
+    private bool _fire1Release = false;
+    */
 
     private void Start()
     {
         Lives.onDepleted += DisableShot;
         Lives.onReload += ReloadShot;
+        CrosshairInput.onPressFire1 += HandlePressFire;
+        CrosshairInput.onReleaseFire1 += HandleReleaseFire;
 
         lineRenderer = gameObject.AddComponent<LineRenderer>();
         lineRenderer.material = new Material(Shader.Find("Sprites/Default"));
@@ -53,7 +61,9 @@ public class Shoot : MonoBehaviour
     private void OnDisable()
     {
         Lives.onDepleted -= DisableShot;
-        Lives.onReload -= ReloadShot;
+        Lives.onReload -= ReloadShot; 
+        CrosshairInput.onPressFire1 += HandlePressFire;
+        CrosshairInput.onReleaseFire1 += HandleReleaseFire;
     }
     void Update()
     {
@@ -63,15 +73,18 @@ public class Shoot : MonoBehaviour
         }
     }
     void HandleShot() {
-        
-        if (Input.GetMouseButtonDown(0))
+
+
+        //gebruik _startPress en _endPress ipv Input.GetMouseButtonDown/Up(0)
+
+        if (_startPress)
         { //als de knop ingedrukt word
             _pressTimer = 0; //reset de timer
             ActivateLine(true);
             particles.Play();
 
         }
-        if (Input.GetMouseButtonUp(0) )
+        if (_endPress)
         { //als je de knop loslaat
             _launchForce = _pressTimer * forceBuild; //bepaal de kracht via de timer
             GameObject ball = Instantiate(prefab, transform.parent); //maak een bal
@@ -87,7 +100,10 @@ public class Shoot : MonoBehaviour
 
         }
         if(_pressTimer < maximumHoldTime) _pressTimer += Time.deltaTime; //houd de teller bij
-       
+
+
+        _startPress = false;
+        _endPress = false;
     }
     private void ActivateLine(bool value) {
         _drawLine = value;
@@ -108,5 +124,11 @@ public class Shoot : MonoBehaviour
     private void ReloadShot()
     {
         _isEnabled = true;
+    }
+    private void HandlePressFire() {
+        _startPress = true;
+    }
+    private void HandleReleaseFire() { 
+        _endPress = true;
     }
 }

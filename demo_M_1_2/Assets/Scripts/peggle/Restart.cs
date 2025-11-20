@@ -8,31 +8,31 @@ public class Restart : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+
+        
         //gameObject.SetActive(false);
         textfield = GetComponent<TMP_Text>();
         textfield.enabled = false;
         Lives.onGameOver += ActivateRestart;
+        CrosshairInput.onPressFire1 += HandleFire;
+
     }
     private void OnDisable()
     {
         Lives.onGameOver -= ActivateRestart;
+        CrosshairInput.onPressFire1 -= HandleFire;
     }
 
     private void ActivateRestart() {
         //gameObject.SetActive(true);
         textfield.enabled = true;
     }
-    private void Update()
-    {
+
+    private void HandleFire() {
         if (textfield.enabled)
         {
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                textfield.enabled = false;
-                
-
-                SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-            }
+            textfield.enabled = false;
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }
