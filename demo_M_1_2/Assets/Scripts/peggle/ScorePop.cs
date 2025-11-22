@@ -15,14 +15,16 @@ public class ScorePop : MonoBehaviour
     void Start()
     {        
         Score.onGetScore += Pop;
-        ExtraBall.onExtraBall += PopLife;
+        ExtraBall.onExtraBall += PopMessage;
+        CrosshairInput.onSwapControls += PopMessage;
         textfield = GetComponent<TMP_Text>();
         textfield.text = string.Empty;
     }
     private void OnDisable()
     {
         Score.onGetScore -= Pop;
-        ExtraBall.onExtraBall -= PopLife;
+        ExtraBall.onExtraBall -= PopMessage;
+        CrosshairInput.onSwapControls -= PopMessage;
     }
     private void Pop(Vector2 location, int value) {
         if (!_priority)
@@ -42,7 +44,7 @@ public class ScorePop : MonoBehaviour
         }
 
     }
-    private void PopLife() {
+    private void PopMessage(string message) {
         _priority = true;
 
         maxScale = 5f;// + (value * 0.00001f);
@@ -54,7 +56,7 @@ public class ScorePop : MonoBehaviour
 
         textfield.transform.position = screenPoint;
 
-        textfield.text = string.Empty + "Extra Ball!";
+        textfield.text = string.Empty + message;//"Extra Ball!";
         StartCoroutine("Animate");
     }
 

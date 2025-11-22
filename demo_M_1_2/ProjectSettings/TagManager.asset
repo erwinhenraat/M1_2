@@ -10,11 +10,16 @@ TagManager:
   - Combo
   - Ball
   - Item
+  - RedCombo
+  - CyanCombo
+  - BlueCombo
+  - YellowCombo
+  - PinkCombo
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Play Area
   - Water
   - UI
   - BG

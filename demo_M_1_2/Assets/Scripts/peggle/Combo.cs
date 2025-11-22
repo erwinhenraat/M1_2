@@ -25,6 +25,25 @@ public class Combo : MonoBehaviour
         tagSequence.Clear();
     }
     private void CheckForCombo(Transform transform, int _) {
+
+        tagSequence.Add(transform.tag);
+        if (tagSequence.Count > 1)
+        {
+            if (tagSequence[tagSequence.Count - 1] == tagSequence[tagSequence.Count - 2])
+            {
+                int comboLevel = tagSequence.Count;
+                onComboAchieved?.Invoke(comboLevel);
+            }
+            else {
+                ResetCombo();                
+                tagSequence.Add(transform.tag);
+            }
+        }
+
+
+
+
+        /*
         if (transform.gameObject.CompareTag("Combo"))
         {
             tagSequence.Add(transform.gameObject.tag);
@@ -37,6 +56,8 @@ public class Combo : MonoBehaviour
         else {            
            ResetCombo();
         }
+
+        */
     }
 
    

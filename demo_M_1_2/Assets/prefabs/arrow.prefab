@@ -81,7 +81,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 3.16, y: 4.45}
+  m_Size: {x: 2.43, y: 0.58}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -147,3 +147,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   prefab: {fileID: 2262322401148545871, guid: c212010f64362344b9993b60f361b721, type: 3}
   forceBuild: 20
+  beamColors: []
+  maximumHoldTime: 5

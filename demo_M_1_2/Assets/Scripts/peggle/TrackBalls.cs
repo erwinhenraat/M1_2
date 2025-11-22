@@ -26,7 +26,7 @@ public class TrackBalls : MonoBehaviour
         _ballsLeft--;
         textfield.text = "Balls:" + _ballsLeft;
     }
-    private void AddBall() {
+    private void AddBall(string _) {
         _ballsLeft++;
         textfield.text = "Balls:" + _ballsLeft;
     }

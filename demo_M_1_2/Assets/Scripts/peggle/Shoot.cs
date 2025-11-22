@@ -49,8 +49,8 @@ public class Shoot : MonoBehaviour
             lineRenderer.endColor = beamColors[1];
         }
 
-        lineRenderer.startWidth = 0.3f;
-        lineRenderer.endWidth = 0.01f;
+        lineRenderer.startWidth = 0.07f;
+        lineRenderer.endWidth = 0.05f;
 
         lineRenderer.positionCount = 2;
 

@@ -32,7 +32,7 @@ public class PlaySounds : MonoBehaviour
     private void PlayGameOver() {
         sources[2].Play();
     }
-    private void PlayExtraBall()
+    private void PlayExtraBall(string _)
     {
         sources[3].Play();
     }

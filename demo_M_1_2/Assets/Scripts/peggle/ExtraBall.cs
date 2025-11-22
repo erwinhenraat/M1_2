@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class ExtraBall : MonoBehaviour
 {
-    public static event Action onExtraBall;
+    public static event Action<string> onExtraBall;
     [SerializeField] private int comboLevelReached = 20;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -18,7 +18,7 @@ public class ExtraBall : MonoBehaviour
 
     private void ExtraBallCheck(int comboLevel) {
         if (comboLevel == comboLevelReached) { 
-            onExtraBall?.Invoke();
+            onExtraBall?.Invoke("Extra Life");
         }
     }
 

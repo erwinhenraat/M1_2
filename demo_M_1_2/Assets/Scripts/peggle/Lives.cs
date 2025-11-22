@@ -45,11 +45,9 @@ public class Lives : MonoBehaviour
             onDepleted?.Invoke();
         }
     }
-    private void AddShotAndLife() {
-        Debug.Log("adding shot and Life");
+    private void AddShotAndLife(string _) {       
         shotsLeft++;
         lives++;
-
         if(shotsLeft>0)onReload?.Invoke();
 
     }
