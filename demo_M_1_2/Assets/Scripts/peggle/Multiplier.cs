@@ -23,12 +23,12 @@ public class Multiplier : MonoBehaviour
         Combo.onComboAchieved -= SetMultiplier;
         Combo.onComboLost -= ResetMultiplier;
     }
-    private void SetMultiplier(int val = 1) { 
+    private void SetMultiplier(int val = 1, string _ = "") { 
         value = val;
         ShowValue();
         onMultiplierUpdate?.Invoke(value);
     }
-    private void ResetMultiplier()
+    private void ResetMultiplier(int _, string __)
     {
         value = 1;
         ShowValue();

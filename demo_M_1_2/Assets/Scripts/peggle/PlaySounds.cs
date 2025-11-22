@@ -25,7 +25,7 @@ public class PlaySounds : MonoBehaviour
         sources[0].pitch = Random.Range(0.5f, 1.5f);
         sources[0].Play();        
     }
-    private void PlayCombo(int value) {
+    private void PlayCombo(int value, string _) {
         sources[1].pitch = 1 + value / 10;
         sources[1].Play();
     }

@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Combo : MonoBehaviour
 {
-    public static event Action<int> onComboAchieved;
-    public static event Action onComboLost;
+    public static event Action<int,string> onComboAchieved;
+    public static event Action<int,string> onComboLost;
     private List<string> tagSequence = new List<string>();
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -21,7 +21,7 @@ public class Combo : MonoBehaviour
     }
     private void ResetCombo()
     {
-        onComboLost?.Invoke();
+        onComboLost?.Invoke(0, "None");
         tagSequence.Clear();
     }
     private void CheckForCombo(Transform transform, int _) {
@@ -32,7 +32,7 @@ public class Combo : MonoBehaviour
             if (tagSequence[tagSequence.Count - 1] == tagSequence[tagSequence.Count - 2])
             {
                 int comboLevel = tagSequence.Count;
-                onComboAchieved?.Invoke(comboLevel);
+                onComboAchieved?.Invoke(comboLevel, tagSequence[tagSequence.Count-1]);
             }
             else {
                 ResetCombo();                

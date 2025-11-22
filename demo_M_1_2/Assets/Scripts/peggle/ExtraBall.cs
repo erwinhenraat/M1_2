@@ -16,7 +16,7 @@ public class ExtraBall : MonoBehaviour
         Combo.onComboAchieved -= ExtraBallCheck;
     }
 
-    private void ExtraBallCheck(int comboLevel) {
+    private void ExtraBallCheck(int comboLevel, string _) {
         if (comboLevel == comboLevelReached) { 
             onExtraBall?.Invoke("Extra Life");
         }

@@ -26,7 +26,7 @@ public class Screenshake : MonoBehaviour
         elapsedTime = 0f;
         StartCoroutine("TrembleStep");    
     }
-    private void Tremble(int points) {
+    private void Tremble(int points, string _) {
         shakeTime = .5f;
         shakeForce = .02f + (.004f * points);
         elapsedTime = 0f;
